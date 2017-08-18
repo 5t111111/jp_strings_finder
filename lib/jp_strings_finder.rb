@@ -1,4 +1,5 @@
 require "jp_strings_finder/version"
+require "jp_strings_finder/config"
 require "jp_strings_finder/finder"
 require "jp_strings_finder/printer"
 

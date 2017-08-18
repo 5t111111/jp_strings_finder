@@ -50,6 +50,22 @@ In both cases, files with not supported filetype are ignore with the below messa
 Unsupported filetype [app/views/books/books.csv]
 ```
 
+## Configuration
+
+You can set a few configuration options by passing YAML file with `-f` option (only excluding files for the moment though):
+
+```
+$ jp_strings_finder -f config.yml app/views/
+```
+
+A config file should be like the below, see `config/config.yml.example` for details:
+
+```yaml
+exclude:
+  - "**/*.ja.html.slim"
+  - "**/version.rb"
+```
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -65,10 +81,6 @@ And then execute:
 Or install it yourself as:
 
     $ gem install jp_strings_finder
-
-## Todo
-
-- Make it possible to specify files to exclude
 
 ## License
 

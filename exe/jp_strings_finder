@@ -1,10 +1,12 @@
 #!/usr/bin/env ruby
 
+require "optparse"
 require "colorize"
 require "jp_strings_finder"
 
-def find_in_file(file_path)
+def find_in_file(file_path, config)
   file_path = File.expand_path(file_path)
+  return if config.exclude?(file_path)
   begin
     strings = JpStringsFinder.find_in(file_path)
   rescue => e
@@ -21,23 +23,27 @@ def find_in_file(file_path)
   end
 end
 
-def find_in_directory(dir_path)
+def find_in_directory(dir_path, config)
   dir_path = File.expand_path(dir_path)
   results = []
   Dir.glob(File.join(dir_path, "/**/*")) do |file_path|
     next if File.directory?(file_path)
-    results << find_in_file(file_path)
+    results << find_in_file(file_path, config)
   end
   results
 end
 
+args = ARGV.getopts('f:')
+config_file = args["f"]
 path = ARGV[0]
+
+config = JpStringsFinder::Config.new(config_file: config_file)
 
 results =
   if File.directory?(path)
-    find_in_directory(path).compact
+    find_in_directory(path, config).compact
   elsif File.file?(path)
-    [find_in_file(path)].compact
+    [find_in_file(path, config)].compact
   else
     raise "[#{path}] is not found"
   end
