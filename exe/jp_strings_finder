@@ -43,7 +43,7 @@ results =
   end
 
 if results.empty?
-  puts "Yay! There is no Japanese string exists in app codes!".colorize(:green)
+  STDERR.puts "Yay! There is no Japanese string exists in your app codes!".colorize(:green)
   exit 0
 else
   JpStringsFinder::Printer.new(results.compact).print_table

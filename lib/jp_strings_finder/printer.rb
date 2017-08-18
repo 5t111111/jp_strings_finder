@@ -25,7 +25,8 @@ module JpStringsFinder
         end
       end
       puts table
-      puts "There are #{list.count} Japanese strings in your app codes".colorize(:yellow)
+      strings_count = list.inject(0) { |acc, elem| acc + elem[:strings].count }
+      STDERR.puts "There are #{strings_count} Japanese strings in #{list.count} files".colorize(:yellow)
     end
 
     private
