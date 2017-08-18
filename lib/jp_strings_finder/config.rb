@@ -21,5 +21,9 @@ module JpStringsFinder
         acc.flatten.uniq
       end
     end
+
+    def exclude?(file_path)
+      @exclude_files.include?(file_path)
+    end
   end
 end
