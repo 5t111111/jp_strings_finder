@@ -1,6 +1,7 @@
 require "jp_strings_finder/filetype_detector"
 require "jp_strings_finder/ruby_finder"
 require "jp_strings_finder/slim_finder"
+require "jp_strings_finder/japanese_detector"
 
 module JpStringsFinder
   class Finder
@@ -14,7 +15,9 @@ module JpStringsFinder
     def find
       File.open(file_path) do |f|
         finder = filetype_specific_finder.new(f.read)
-        finder.find
+        finder.find.select do |str|
+          JapaneseDetector.contain_japanese?(str)
+        end
       end
     end
 

@@ -5,5 +5,9 @@ module JpStringsFinder
     def initialize(src)
       @src = src
     end
+
+    def find
+      raise NotImplementedError
+    end
   end
 end
