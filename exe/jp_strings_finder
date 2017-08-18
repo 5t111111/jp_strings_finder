@@ -8,7 +8,7 @@ def find_in_file(file_path)
   begin
     strings = JpStringsFinder.find_in(file_path)
   rescue => e
-    puts e
+    STDERR.puts e.message.colorize(:red)
     return
   end
 

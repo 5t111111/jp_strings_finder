@@ -12,7 +12,7 @@ module JpStringsFinder
         when ".slim"
           :slim
         else
-          raise "Unsupported filetype [#{file_path}]".colorize(:red)
+          raise "Unsupported filetype [#{file_path}]"
         end
     end
   end

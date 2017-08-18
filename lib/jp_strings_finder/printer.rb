@@ -1,5 +1,6 @@
 require "pathname"
 require "terminal-table"
+require "colorize"
 
 module JpStringsFinder
   class Printer
