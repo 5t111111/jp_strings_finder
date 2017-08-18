@@ -1,5 +1,5 @@
 module JpStringsFinder
-  class SlimFinder
+  class ERBFinder
     attr_reader :src
 
     def initialize(src)
@@ -12,3 +12,4 @@ module JpStringsFinder
     end
   end
 end
+

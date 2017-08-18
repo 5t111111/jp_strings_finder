@@ -7,6 +7,8 @@ module JpStringsFinder
         case File.extname(file_path)
         when ".rb"
           :ruby
+        when ".erb"
+          :erb
         when ".slim"
           :slim
         else

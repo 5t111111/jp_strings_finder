@@ -1,5 +1,6 @@
 require "jp_strings_finder/filetype_detector"
 require "jp_strings_finder/ruby_finder"
+require "jp_strings_finder/erb_finder"
 require "jp_strings_finder/slim_finder"
 require "jp_strings_finder/japanese_detector"
 
@@ -28,6 +29,8 @@ module JpStringsFinder
         case filetype
         when :ruby
           RubyFinder
+        when :erb
+          ERBFinder
         when :slim
           SlimFinder
         end
