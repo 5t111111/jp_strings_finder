@@ -3,8 +3,9 @@
 require "jp_strings_finder"
 
 def find_in_file(file_path)
+  absolute_file_path = File.expand_path(file_path)
   begin
-    strings = JpStringsFinder.find_in(file_path)
+    strings = JpStringsFinder.find_in(absolute_file_path)
   rescue => e
     puts e
     return
@@ -12,8 +13,8 @@ def find_in_file(file_path)
 
   unless strings.empty?
     {
-      file: file_path,
-      type: JpStringsFinder::FiletypeDetector.new(file_path).filetype, #TODO: directly access to inner class is not preffered
+      file: absolute_file_path,
+      type: JpStringsFinder::FiletypeDetector.new(absolute_file_path).filetype, #TODO: directly access to inner class is not preffered
       strings: strings
     }
   end
