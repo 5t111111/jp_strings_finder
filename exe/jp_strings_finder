@@ -1,0 +1,45 @@
+#!/usr/bin/env ruby
+
+require "jp_strings_finder"
+
+def find_in_file(file_path)
+  {
+    file: file_path,
+    strings: JpStringsFinder.find_in(file_path)
+  }
+end
+
+def find_in_directory(dir_path)
+  results = []
+  Dir.glob(File.join(dir_path, "/**/*")).each do |file_path|
+    next if File.directory?(file_path)
+    results << find_in_file(file_path)
+  end
+  results
+end
+
+def print_results(results)
+  results.each do |hash|
+    puts "=" * 80
+    puts hash[:file]
+    puts "=" * 80
+    hash[:strings].each do |str|
+      puts str
+    end
+    puts ""
+  end
+
+end
+
+path = ARGV[0]
+
+results =
+  if File.directory?(path)
+    find_in_directory(path)
+  elsif File.file?(path)
+    [find_in_file(path)]
+  else
+    raise "[#{path}] is not found"
+  end
+
+print_results(results)
