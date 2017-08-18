@@ -11,6 +11,7 @@ module JpStringsFinder
 
     def print_table
       table = Terminal::Table.new do |t|
+        t.headings = ['File', 'Type', 'Strings']
         list.each_with_index do |hash, index|
           t.add_row(
             [
@@ -23,6 +24,7 @@ module JpStringsFinder
         end
       end
       puts table
+      puts "There are #{list.count} Japanese strings in your app codes".colorize(:yellow)
     end
 
     private

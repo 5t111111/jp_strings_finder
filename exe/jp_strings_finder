@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
+require "colorize"
 require "jp_strings_finder"
 
 def find_in_file(file_path)
@@ -34,11 +35,17 @@ path = ARGV[0]
 
 results =
   if File.directory?(path)
-    find_in_directory(path)
+    find_in_directory(path).compact
   elsif File.file?(path)
-    [find_in_file(path)]
+    [find_in_file(path)].compact
   else
     raise "[#{path}] is not found"
   end
 
-JpStringsFinder::Printer.new(results.compact).print_table
+if results.empty?
+  puts "Yay! There is no Japanese string exists in app codes!".colorize(:green)
+  exit 0
+else
+  JpStringsFinder::Printer.new(results.compact).print_table
+  exit 1
+end
