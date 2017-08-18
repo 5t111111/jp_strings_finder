@@ -13,6 +13,7 @@ def find_in_file(file_path)
   unless strings.empty?
     {
       file: file_path,
+      type: JpStringsFinder::FiletypeDetector.new(file_path).filetype, #TODO: directly access to inner class is not preffered
       strings: strings
     }
   end
@@ -27,19 +28,6 @@ def find_in_directory(dir_path)
   results
 end
 
-def print_results(results)
-  results.each do |hash|
-    puts "=" * 80
-    puts hash[:file]
-    puts "=" * 80
-    hash[:strings].each do |str|
-      puts str
-    end
-    puts ""
-  end
-
-end
-
 path = ARGV[0]
 
 results =
@@ -51,4 +39,4 @@ results =
     raise "[#{path}] is not found"
   end
 
-print_results(results.compact)
+JpStringsFinder::Printer.new(results.compact).print_table
