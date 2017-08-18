@@ -1,8 +1,54 @@
-# JpStringsFinder
+# jp_strings_finder
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/jp_strings_finder`. To experiment with that code, run `bin/console` for an interactive prompt.
+jp_strings_finder is an i18n util for your Japanese project which expected to get translated to other languages.
 
-TODO: Delete this and the text above, and describe your gem
+It searchs for Japanese strings in a directory or a file and reports the results like:
+
+```
+$ jp_strings_finder app/
+
++--------------------------------------------+------+------------------------------------------------+
+| File                                       | Type | Strings                                        |
++--------------------------------------------+------+------------------------------------------------+
+| controllers/books_controller.rb            | RUBY | 本を書いました                                 |
++--------------------------------------------+------+------------------------------------------------+
+| views/books/index.slim                     | SLIM | 本の一覧ですほげ                               |
+|                                            |      | 次のページを見る                               |
++--------------------------------------------+------+------------------------------------------------+
+There are 3 Japanese strings in 2 files
+```
+
+jp_strings_finder currently supports the below file types:
+
+- Ruby (`.rb`)
+- ERB (`.erb`)
+- Slim (`.slim`)
+
+It fails with status code `-1` when at least 1 Japanese string is found, so it can also be used in your test.
+
+## Usage
+
+### Specifying a single file
+
+Specifying a single file searchs for Japanese strings in the file:
+
+```
+$ jp_strings_finder app/views/books/index.slim
+```
+
+### Specifying a directory
+
+Specifying a directory recursively searchs for Japanese strings in the directory:
+
+```
+$ jp_strings_finder app/views/
+```
+
+In both cases, files with not supported filetype are ignore with the below message:
+
+```
+Unsupported filetype [app/views/books/books.csv]
+```
 
 ## Installation
 
@@ -19,20 +65,6 @@ And then execute:
 Or install it yourself as:
 
     $ gem install jp_strings_finder
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/jp_strings_finder.
 
 ## License
 
