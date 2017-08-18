@@ -3,15 +3,24 @@
 require "jp_strings_finder"
 
 def find_in_file(file_path)
-  {
-    file: file_path,
-    strings: JpStringsFinder.find_in(file_path)
-  }
+  begin
+    strings = JpStringsFinder.find_in(file_path)
+  rescue => e
+    puts e
+    return
+  end
+
+  unless strings.empty?
+    {
+      file: file_path,
+      strings: strings
+    }
+  end
 end
 
 def find_in_directory(dir_path)
   results = []
-  Dir.glob(File.join(dir_path, "/**/*.rb")) do |file_path|
+  Dir.glob(File.join(dir_path, "/**/*")) do |file_path|
     next if File.directory?(file_path)
     results << find_in_file(file_path)
   end
@@ -42,4 +51,4 @@ results =
     raise "[#{path}] is not found"
   end
 
-print_results(results)
+print_results(results.compact)

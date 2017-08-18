@@ -10,7 +10,7 @@ module JpStringsFinder
         when ".slim"
           :slim
         else
-          raise "Unsupported filetype"
+          raise "Unsupported filetype [#{file_path}]"
         end
     end
   end
