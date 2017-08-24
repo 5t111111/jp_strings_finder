@@ -8,7 +8,9 @@ module JpStringsFinder
 
     # Very very rough implementation for the moment...
     def find
-      src.split("\n")
+      strings = src.split("\n")
+      # Remove Slim comments
+      strings.reject { |s| s.strip.match?(/^\/[:blank]*/) }
     end
   end
 end
